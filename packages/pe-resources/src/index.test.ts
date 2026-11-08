@@ -116,7 +116,7 @@ describe("findResourceType (cross-platform)", () => {
 
 describeOnWindows("findResourceSection (Windows)", () => {
   it("finds the resource section in notepad.exe", async () => {
-    const fh = await fsp.open("C:\\Windows\\System32\\notepad.exe", "r");
+    const fh = await fsp.open("C:\\Windows\\explorer.exe", "r");
     try {
       const section = await findResourceSection(fh);
       expect(section).toBeDefined();
@@ -131,7 +131,7 @@ describeOnWindows("findResourceSection (Windows)", () => {
 
 describeOnWindows("findResourceType (Windows)", () => {
   it("finds RT_VERSION in notepad.exe", async () => {
-    const fh = await fsp.open("C:\\Windows\\System32\\notepad.exe", "r");
+    const fh = await fsp.open("C:\\Windows\\explorer.exe", "r");
     try {
       const section = (await findResourceSection(fh))!;
       const resourceOffset = section.resourceRVA - section.sectionVA;
@@ -143,7 +143,7 @@ describeOnWindows("findResourceType (Windows)", () => {
   });
 
   it("finds RT_GROUP_ICON in notepad.exe", async () => {
-    const fh = await fsp.open("C:\\Windows\\System32\\notepad.exe", "r");
+    const fh = await fsp.open("C:\\Windows\\explorer.exe", "r");
     try {
       const section = (await findResourceSection(fh))!;
       const resourceOffset = section.resourceRVA - section.sectionVA;
@@ -155,7 +155,7 @@ describeOnWindows("findResourceType (Windows)", () => {
   });
 
   it("finds RT_ICON in notepad.exe", async () => {
-    const fh = await fsp.open("C:\\Windows\\System32\\notepad.exe", "r");
+    const fh = await fsp.open("C:\\Windows\\explorer.exe", "r");
     try {
       const section = (await findResourceSection(fh))!;
       const resourceOffset = section.resourceRVA - section.sectionVA;
@@ -169,7 +169,7 @@ describeOnWindows("findResourceType (Windows)", () => {
 
 describeOnWindows("collectDataEntries (Windows)", () => {
   it("collects RT_ICON entries from notepad.exe", async () => {
-    const fh = await fsp.open("C:\\Windows\\System32\\notepad.exe", "r");
+    const fh = await fsp.open("C:\\Windows\\explorer.exe", "r");
     try {
       const section = (await findResourceSection(fh))!;
       const resourceOffset = section.resourceRVA - section.sectionVA;

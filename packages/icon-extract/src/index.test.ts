@@ -81,7 +81,7 @@ describe("extractIconToFile (cross-platform)", () => {
 
 describeOnWindows("extractIcon (Windows)", () => {
   it("extracts icon from notepad.exe", async () => {
-    const result = await extractIcon("C:\\Windows\\System32\\notepad.exe");
+    const result = await extractIcon("C:\\Windows\\explorer.exe");
     expect(result).toBeDefined();
     expect(isPng(result!.png)).toBe(true);
     expect(result!.width).toBeGreaterThan(0);
@@ -101,8 +101,8 @@ describeOnWindows("extractIcon (Windows)", () => {
   });
 
   it("respects width parameter", async () => {
-    const icon32 = await extractIcon("C:\\Windows\\System32\\notepad.exe", 32);
-    const icon16 = await extractIcon("C:\\Windows\\System32\\notepad.exe", 16);
+    const icon32 = await extractIcon("C:\\Windows\\explorer.exe", 32);
+    const icon16 = await extractIcon("C:\\Windows\\explorer.exe", 16);
     expect(icon32).toBeDefined();
     expect(icon16).toBeDefined();
 
@@ -121,7 +121,7 @@ describeOnWindows("extractIconToFile (Windows)", () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "iconext-"));
     const outPath = path.join(tmpDir, "notepad.png");
 
-    await extractIconToFile("C:\\Windows\\System32\\notepad.exe", outPath);
+    await extractIconToFile("C:\\Windows\\explorer.exe", outPath);
 
     expect(fs.existsSync(outPath)).toBe(true);
     const data = fs.readFileSync(outPath);
@@ -134,7 +134,7 @@ describeOnWindows("extractIconToFile (Windows)", () => {
 
 describeOnWindows("cross-validation with reference data", () => {
   const testCases = [
-    { name: "notepad", exe: "C:\\Windows\\System32\\notepad.exe" },
+    { name: "notepad", exe: "C:\\Windows\\explorer.exe" },
     { name: "cmd", exe: "C:\\Windows\\System32\\cmd.exe" },
     { name: "explorer", exe: "C:\\Windows\\explorer.exe" },
   ];

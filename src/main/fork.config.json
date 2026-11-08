@@ -1,0 +1,22 @@
+{
+  "productName": "Athos Mod Manager",
+  "packageName": "athos-mod-manager",
+  "executableName": "AthosModManager",
+  "appId": "io.github.thecreator177.athosmodmanager",
+  "dataDirectory": "AthosModManager",
+  "maintainer": "Tony",
+  "version": "2.11.0-athos.1",
+  "description": "An independently maintained, configurable Vortex fork.",
+  "registerProtocolClients": false,
+  "automation": {
+    "deploy": false,
+    "install": false,
+    "enable": false
+  },
+  "updates": {
+    "enabled": false,
+    "owner": "theCreator177",
+    "repository": "Athos-Mod-Manager",
+    "publisherNames": []
+  }
+}

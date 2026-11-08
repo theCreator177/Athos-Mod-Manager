@@ -31,7 +31,7 @@ describe("public API (cross-platform)", () => {
 
 describeOnWindows("readVersionInfo", () => {
   it("reads notepad.exe version info", () => {
-    const info = readVersionInfo("C:\\Windows\\System32\\notepad.exe");
+    const info = readVersionInfo("C:\\Windows\\explorer.exe");
     expect(info).toBeDefined();
     expect(info!.fileVersion).toHaveLength(4);
     expect(info!.fileVersion[0]).toBeGreaterThan(0);
@@ -66,7 +66,7 @@ describeOnWindows("readVersionInfo", () => {
 });
 
 describeOnWindows("public API", () => {
-  const notepad = "C:\\Windows\\System32\\notepad.exe";
+  const notepad = "C:\\Windows\\explorer.exe";
 
   it("getFileVersion returns dotted version string", () => {
     const ver = getFileVersion(notepad);
@@ -119,7 +119,7 @@ describeOnWindows("cross-validation with native module", () => {
   }
 
   const testFiles = [
-    "C:\\Windows\\System32\\notepad.exe",
+    "C:\\Windows\\explorer.exe",
     "C:\\Windows\\System32\\cmd.exe",
     "C:\\Windows\\explorer.exe",
   ];
@@ -140,7 +140,7 @@ describeOnWindows("cross-validation with native module", () => {
 });
 
 describeOnWindows("benchmark", () => {
-  const notepad = "C:\\Windows\\System32\\notepad.exe";
+  const notepad = "C:\\Windows\\explorer.exe";
   const runs = 2000;
 
   it(`reads ${runs} versions from notepad.exe`, () => {
