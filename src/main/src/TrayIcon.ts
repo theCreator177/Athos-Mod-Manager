@@ -1,5 +1,6 @@
 import path from "node:path";
 
+import { FORK } from "@vortex/shared";
 import { BrowserWindow, Menu, Tray } from "electron";
 
 import { getVortexPath } from "./getVortexPath";
@@ -66,6 +67,7 @@ class TrayIcon {
 
   private initTrayIcon() {
     this.mTrayIcon = new Tray(this.mImagePath);
+    this.mTrayIcon.setToolTip(FORK.productName);
 
     this.mTrayIcon.setContextMenu(
       Menu.buildFromTemplate([

@@ -1,3 +1,4 @@
+import { FORK } from "@vortex/shared";
 import update from "immutability-helper";
 
 import type { IReducerSpec } from "../../../types/IExtensionContext";
@@ -20,9 +21,9 @@ const automationReducer: IReducerSpec<ISettingsAutomation> = {
       update(state, { minimized: { $set: payload } }),
   },
   defaults: {
-    deploy: true,
-    install: true,
-    enable: true,
+    deploy: FORK.automation.deploy,
+    install: FORK.automation.install,
+    enable: FORK.automation.enable,
     start: false,
     minimized: false,
   },

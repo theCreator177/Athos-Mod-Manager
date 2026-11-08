@@ -1,6 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const { setupAutoUpdaterMock } = vi.hoisted(() => ({ setupAutoUpdaterMock: vi.fn() }));
+const { setupAutoUpdaterMock, forkUpdates } = vi.hoisted(() => ({
+  setupAutoUpdaterMock: vi.fn(),
+  forkUpdates: { enabled: true },
+}));
+
+vi.mock("@vortex/shared", () => ({
+  FORK: { updates: forkUpdates },
+  getErrorMessageOrDefault: (error: Error) => error.message,
+}));
 
 vi.mock("./autoupdater", () => ({ setupAutoUpdater: setupAutoUpdaterMock }));
 vi.mock("../logging", () => ({ log: vi.fn() }));
@@ -9,6 +17,7 @@ import { initUpdater, isUpdaterActive } from "./updater";
 
 beforeEach(() => {
   vi.clearAllMocks();
+  forkUpdates.enabled = true;
   // a developer machine may have the dev-updater opt-in persisted in the user
   // environment; tests must never depend on ambient env
   vi.stubEnv("VORTEX_DEV_UPDATER", "");
@@ -20,6 +29,15 @@ afterEach(() => {
 });
 
 describe("isUpdaterActive", () => {
+  it("blocks automatic and development updates when fork updates are disabled", () => {
+    forkUpdates.enabled = false;
+    expect(isUpdaterActive("regular")).toBe(false);
+    vi.stubEnv("NODE_ENV", "development");
+    vi.stubEnv("VORTEX_DEV_UPDATER", "1");
+    expect(isUpdaterActive("regular")).toBe(false);
+    initUpdater("regular");
+    expect(setupAutoUpdaterMock).not.toHaveBeenCalled();
+  });
   it("is on for a regular install outside development", () => {
     expect(isUpdaterActive("regular")).toBe(true);
   });

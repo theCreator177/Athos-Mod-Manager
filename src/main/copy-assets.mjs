@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { cp, mkdir } from "node:fs/promises";
+import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { join, basename, dirname } from "node:path";
 
@@ -71,8 +71,19 @@ try {
 
 // Static files
 await copy(join(WORKSPACE, "LICENSE.md"), join(BUILD, "LICENSE.md"));
-await copy(join(WORKSPACE, "src/renderer/src/index.html"), join(BUILD, "index.html"));
-await copy(join(WORKSPACE, "src/renderer/src/splash.html"), join(BUILD, "splash.html"));
+await copy(join(WORKSPACE, "FORK-NOTICE.md"), join(BUILD, "FORK-NOTICE.md"));
+const fork = JSON.parse(await readFile(join(WORKSPACE, "fork.config.json"), "utf8"));
+const escapeHtml = (text) =>
+  text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+for (const file of ["index.html", "splash.html"]) {
+  const html = await readFile(join(WORKSPACE, "src/renderer/src", file), "utf8");
+  await writeFile(
+    join(BUILD, file),
+    html
+      .replaceAll("__FORK_PRODUCT_NAME__", escapeHtml(fork.productName))
+      .replaceAll("__FORK_MAINTAINER__", escapeHtml(fork.maintainer)),
+  );
+}
 await copy(join(WORKSPACE, "src/queries"), join(BUILD, "queries"));
 
 // Static assets

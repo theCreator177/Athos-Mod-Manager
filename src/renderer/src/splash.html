@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Vortex</title>
+        <title>__FORK_PRODUCT_NAME__</title>
         <style>
             .fade-out {
                 opacity: 1;
@@ -20,7 +20,27 @@
             overflow: hidden;
         "
     >
-        <img id="splash" class="fade-out" src="assets/images/splash.png" />
+        <div
+            id="splash"
+            class="fade-out"
+            style="
+                background: #131b2b;
+                color: #edf2fa;
+                width: 600px;
+                height: 280px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-family: system-ui;
+                border-radius: 20px;
+                box-sizing: border-box;
+            "
+        >
+            <h1 style="font-size: 32px; margin: 0 0 12px">__FORK_PRODUCT_NAME__</h1>
+            <p>Maintained by __FORK_MAINTAINER__</p>
+            <p style="color: #a7b4cd">Independent Vortex fork · GPLv3</p>
+        </div>
 
         <script>
             require("./splash.js");

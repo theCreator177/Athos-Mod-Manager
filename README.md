@@ -1,3 +1,26 @@
+# Athos Mod Manager
+
+Athos is Tony's independently maintained experimental fork of Vortex. The
+application has its own executable and data identity; the installed Vortex
+application and its existing library remain separate.
+
+- Configure identity and first-run policy in [`fork.config.json`](fork.config.json).
+- Build and run instructions: [Athos development](docs/athos-development.md).
+- Ownership and retained notices: [fork notice](FORK-NOTICE.md) and
+  [licensing inventory](docs/fork-licensing.md).
+- Automatic updates, protocol registration, deployment, installation, and mod
+  enabling start disabled in the new Athos profile. Manual actions remain
+  available when deliberately selected.
+
+The inherited code retains its original licenses and author attribution;
+Tony's attribution covers the Athos modifications. Existing mod files are
+not moved, deleted, or deployed by this fork setup.
+
+## Upstream project documentation
+
+The following overview describes the upstream Vortex project and its resources.
+Its official downloads and support links are not Athos release channels.
+
 <p align="center">
   <img src=".github/assets/github_readme_title.png" alt="Vortex Mod Manager title banner"/>
 </p>

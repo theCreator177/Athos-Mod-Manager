@@ -10,6 +10,7 @@
  * Must stay loadable in plain node (vitest): no electron imports.
  */
 
+import { FORK } from "@vortex/shared";
 import * as semver from "semver";
 
 import { log } from "../../logging";
@@ -41,9 +42,9 @@ export class RateLimitError extends Error {
   }
 }
 
-const OWNER = "Nexus-Mods";
+const OWNER = FORK.updates.owner;
 const MAX_PAGES = 3;
-const INSTALLER_ASSET = /^vortex-setup-.*\.exe$/i;
+const INSTALLER_PREFIX = `${FORK.packageName}-setup-`;
 
 // Overridable so tests and the mock update feed can stand in for GitHub.
 function apiBase(): string {
@@ -62,7 +63,7 @@ export function repoForChannel(): string {
   if (override != null && override !== "") {
     return override.includes("/") ? override.split("/")[1]! : override;
   }
-  return "Vortex";
+  return FORK.updates.repository;
 }
 
 export function repoOwner(): string {
@@ -96,7 +97,9 @@ function isEligible(release: GithubReleaseLite): boolean {
     return false;
   }
   const hasUpdateAssets = release.assets.some(
-    (asset) => asset.name === "latest.yml" || INSTALLER_ASSET.test(asset.name),
+    (asset) =>
+      asset.name === "latest.yml" ||
+      (asset.name.startsWith(INSTALLER_PREFIX) && asset.name.endsWith(".exe")),
   );
   if (!hasUpdateAssets) {
     return false;

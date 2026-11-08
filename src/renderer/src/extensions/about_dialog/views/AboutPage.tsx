@@ -6,7 +6,7 @@ type BOMLicense = NonNullable<BOMComponent["licenses"]>[number];
 import * as fs from "fs";
 import * as path from "path";
 
-import { getErrorMessageOrDefault } from "@vortex/shared";
+import { FORK, getErrorMessageOrDefault } from "@vortex/shared";
 import I18next from "i18next";
 import * as React from "react";
 import { Image, Media, Panel } from "react-bootstrap";
@@ -104,6 +104,8 @@ class AboutPage extends ComponentEx<IProps, IComponentState> {
 
   public componentDidMount() {
     this.mMounted = true;
+    // Private fork versions have no matching upstream release metadata.
+    if (!FORK.updates.enabled) return;
 
     // no longer have to ignore if development now that we have tag information as part of the package.json version
     // this code hasn't changed, but we only show the date now next to version and not the changelog or tag
@@ -168,12 +170,14 @@ class AboutPage extends ComponentEx<IProps, IComponentState> {
               </Media.Left>
               <Media.Body>
                 <h2 className="media-heading">
-                  Vortex {this.mVersion}{" "}
+                  {FORK.productName} {this.mVersion}{" "}
                   {releaseDate !== undefined
                     ? `(${releaseDate.toLocaleDateString(I18next.language)})`
                     : ""}
                 </h2>
                 <p>&#169;2026 Black Tree Gaming Ltd.</p>
+                <p>Independent Vortex fork maintained by {FORK.maintainer}.</p>
+                <p>Fork modifications &#169;2026 {FORK.maintainer}; upstream rights retained.</p>
                 <p>
                   {t("Released under")} <a onClick={this.showOwnLicense}>GPL-3</a> {t("License")}
                 </p>

@@ -1,5 +1,6 @@
 import * as path from "path";
 
+import { FORK } from "@vortex/shared";
 import { shell } from "electron";
 import update from "immutability-helper";
 import * as React from "react";
@@ -228,11 +229,13 @@ class ProfileView extends ComponentEx<IProps, IViewState> {
     const desktopLocation = getVortexPath("desktop");
     const shortcutPath = path.join(
       desktopLocation,
-      `Start Vortex Profile_${profileId}(${profile.gameId}).lnk`,
+      `Start ${FORK.productName} Profile_${profileId}(${profile.gameId}).lnk`,
     );
 
     // In development, electron.exe needs the app directory as first argument
-    const target = isDevelopment ? exePath : path.join(path.dirname(exePath), "Vortex.exe");
+    const target = isDevelopment
+      ? exePath
+      : path.join(path.dirname(exePath), `${FORK.executableName}.exe`);
 
     const args = isDevelopment
       ? `"${getVortexPath("package")}" --profile ${profileId}`
@@ -245,7 +248,7 @@ class ProfileView extends ComponentEx<IProps, IViewState> {
 
     const displayMS = 5000;
     const message = created
-      ? t("Vortex profile shortcut saved to desktop")
+      ? t("{{application}} profile shortcut saved to desktop", { application: FORK.productName })
       : t("Failed to save profile shortcut to desktop");
 
     const type = created ? "info" : "error";

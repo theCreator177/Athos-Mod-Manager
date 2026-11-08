@@ -2,7 +2,13 @@ import { mkdirSync, statSync } from "node:fs";
 import { readFile, writeFile, rm, stat } from "node:fs/promises";
 import path from "node:path";
 
-import { getErrorCode, getErrorMessageOrDefault, parseError, unknownToError } from "@vortex/shared";
+import {
+  FORK,
+  getErrorCode,
+  getErrorMessageOrDefault,
+  parseError,
+  unknownToError,
+} from "@vortex/shared";
 import type { IParameters, ISetItem } from "@vortex/shared/cli";
 import {
   DataInvalid,
@@ -281,17 +287,13 @@ class Application {
     });
 
     const onReady = () => {
-      const vortexPath = process.env.NODE_ENV === "development" ? "vortex_devel" : "vortex";
-
       // if userData specified, use it
       let userData =
         args.userData ??
         // (only on windows) use ProgramData from environment
         (args.shared && process.platform === "win32" && process.env.ProgramData !== undefined
-          ? path.join(process.env.ProgramData, "vortex")
-          : // this allows the development build to access data from the
-            // production version and vice versa
-            path.resolve(app.getPath("userData"), "..", vortexPath));
+          ? path.join(process.env.ProgramData, FORK.dataDirectory)
+          : app.getPath("userData"));
       userData = path.join(userData, currentStatePath);
 
       // handle nxm:// internally
@@ -626,7 +628,7 @@ class Application {
      */
 
     try {
-      await stat(path.join(getVortexPath("application"), "Uninstall Vortex.exe"));
+      await stat(path.join(getVortexPath("application"), `Uninstall ${FORK.productName}.exe`));
       // Collect metadata - renderer will dispatch the action
       this.mAppMetadata!.installType = "regular";
     } catch {
@@ -888,7 +890,7 @@ class Application {
 
   private multiUserPath() {
     if (process.platform === "win32" && process.env.ProgramData !== undefined) {
-      const muPath = path.join(process.env.ProgramData, "vortex");
+      const muPath = path.join(process.env.ProgramData, FORK.dataDirectory);
       try {
         mkdirSync(muPath, { recursive: true });
       } catch (err) {

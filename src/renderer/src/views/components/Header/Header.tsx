@@ -1,3 +1,4 @@
+import { FORK } from "@vortex/shared";
 import React, { type FC, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -70,6 +71,8 @@ export const Header: FC<React.PropsWithChildren<unknown>> = () => {
           brand="none"
           className="flex grow items-center gap-x-2 overflow-hidden font-medium whitespace-nowrap"
         >
+          <span className="truncate text-neutral-subdued">{FORK.productName}</span>
+          <span aria-hidden="true">·</span>
           <span className="truncate text-neutral-strong">{title}</span>
 
           {!!profileName && (

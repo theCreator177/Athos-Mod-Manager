@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.schemastore.org/package.json",
   "name": "@vortex/main",
-  "author": "Black Tree Gaming Ltd.",
+  "author": "Tony",
   "license": "GPL-3.0-only",
-  "version": "1.0.0",
+  "version": "2.11.0-athos.1",
   "private": true,
   "type": "commonjs",
   "main": "build/main.cjs",
@@ -141,7 +141,9 @@
           "{workspaceRoot}/src/queries/",
           "{workspaceRoot}/assets/",
           "{workspaceRoot}/locales/",
-          "{workspaceRoot}/LICENSE.md"
+          "{workspaceRoot}/LICENSE.md",
+          "{workspaceRoot}/FORK-NOTICE.md",
+          "{workspaceRoot}/fork.config.json"
         ],
         "outputs": [
           "{projectRoot}/build/assets/",
@@ -149,7 +151,8 @@
           "{projectRoot}/build/queries/",
           "{projectRoot}/build/index.html",
           "{projectRoot}/build/splash.html",
-          "{projectRoot}/build/LICENSE.md"
+          "{projectRoot}/build/LICENSE.md",
+          "{projectRoot}/build/FORK-NOTICE.md"
         ]
       },
       "sbom": {
@@ -220,6 +223,7 @@
     }
   },
   "files": [
+    "./fork.config.json",
     "./build",
     "./nsis/",
     "./electron-builder.config.json",
@@ -405,5 +409,11 @@
     "react-refresh": "catalog:",
     "redux-freeze": "catalog:",
     "vitest-fetch-mock": "catalog:"
-  }
+  },
+  "productName": "Athos Mod Manager",
+  "description": "An independently maintained, configurable Vortex fork.",
+  "contributors": [
+    "Black Tree Gaming Ltd. and Vortex contributors (upstream)",
+    "Tony"
+  ]
 }

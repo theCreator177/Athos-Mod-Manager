@@ -5,6 +5,11 @@ Project and coding documentation. To set up and build Vortex, start with
 [CODESTYLE.md](../CODESTYLE.md). Agents should also read
 [AGENTS.md](../AGENTS.md).
 
+## Athos fork
+
+- [athos-development.md](athos-development.md) - Build, launch and experiment with the isolated Athos manager
+- [fork-licensing.md](fork-licensing.md) - Fork ownership, retained upstream licenses and distribution review
+
 ## Start here
 
 - [repo-layout.md](repo-layout.md) - Where everything lives, and where to start for a given change

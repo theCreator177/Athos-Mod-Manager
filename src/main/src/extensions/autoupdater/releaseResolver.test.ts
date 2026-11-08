@@ -16,6 +16,10 @@ import {
 } from "./releaseResolver";
 
 vi.mock("../../logging", () => ({ log: vi.fn() }));
+// Keep the historical release fixtures testing the resolver independently of branding.
+vi.mock("@vortex/shared", () => ({
+  FORK: { packageName: "vortex", updates: { owner: "Nexus-Mods", repository: "Vortex" } },
+}));
 
 const fixture = JSON.parse(
   readFileSync(path.join(__dirname, "__fixtures__", "releases.json"), "utf8"),

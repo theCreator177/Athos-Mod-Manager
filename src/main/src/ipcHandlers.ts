@@ -7,7 +7,7 @@ import { appendFileSync } from "node:fs";
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { VortexError } from "@vortex/shared";
+import { FORK, VortexError } from "@vortex/shared";
 import {
   fromWire,
   toWire,
@@ -175,6 +175,7 @@ export function init(fs: FileSystem) {
   betterIpcMain.handle(
     "app:setProtocolClient",
     (_event: IpcMainInvokeEvent, protocol: string, udPath: string | undefined) => {
+      if (!FORK.registerProtocolClients) return;
       const [execPath, args] = selfCL(udPath);
       app.setAsDefaultProtocolClient(protocol, execPath, args);
     },
@@ -191,6 +192,7 @@ export function init(fs: FileSystem) {
   betterIpcMain.handle(
     "app:removeProtocolClient",
     (_event: IpcMainInvokeEvent, protocol: string, udPath: string | undefined) => {
+      if (!FORK.registerProtocolClients) return;
       const [execPath, args] = selfCL(udPath);
       app.removeAsDefaultProtocolClient(protocol, execPath, args);
     },

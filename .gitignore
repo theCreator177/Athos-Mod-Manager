@@ -116,3 +116,8 @@ test-results/
 
 .nx/cache
 .nx/workspace-data
+
+# Local Athos build tooling and verification evidence
+/.athos-tools/
+/athos-*.log
+/athos-evidence/
